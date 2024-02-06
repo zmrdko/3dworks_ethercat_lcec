@@ -3,26 +3,26 @@
     <slave idx="0" type="DeASDB3" name="X">
       <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
       <modParam name="opmode" value="CSP"/>
-      <sdoConfig idx="6093h" subIndx="1"><sdoDataRaw data="00 00 00 01"/></sdoConfig> <!-- P1.044 E-Gear ratio numerator (N1) = 16777216 -->
-      <sdoConfig idx="6093h" subIndx="2"><sdoDataRaw data="20 A1 07 00"/></sdoConfig> <!-- P1.045 E-Gear ratio denominator (M) = 500 000 -->
+      <sdoConfig idx="6093h" subIdx="1"><sdoDataRaw data="00 00 00 01"/></sdoConfig> <!-- P1.044 E-Gear ratio numerator (N1) = 16777216 -->
+      <sdoConfig idx="6093h" subIdx="2"><sdoDataRaw data="20 A1 07 00"/></sdoConfig> <!-- P1.045 E-Gear ratio denominator (M) = 500 000 -->
     </slave>
     <slave idx="1" type="DeASDB3" name="Y1">
       <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
       <modParam name="opmode" value="CSP"/>
-      <sdoConfig idx="6093h" subIndx="1"><sdoDataRaw data="00 00 00 01"/></sdoConfig> <!-- P1.044 E-Gear ratio numerator (N1) = 16777216 -->
-      <sdoConfig idx="6093h" subIndx="2"><sdoDataRaw data="20 A1 07 00"/></sdoConfig> <!-- P1.045 E-Gear ratio denominator (M) = 500 000 -->
+      <sdoConfig idx="6093h" subIdx="1"><sdoDataRaw data="00 00 00 01"/></sdoConfig> <!-- P1.044 E-Gear ratio numerator (N1) = 16777216 -->
+      <sdoConfig idx="6093h" subIdx="2"><sdoDataRaw data="20 A1 07 00"/></sdoConfig> <!-- P1.045 E-Gear ratio denominator (M) = 500 000 -->
     </slave>
     <slave idx="2" type="DeASDB3" name="Y2">
       <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
       <modParam name="opmode" value="CSP"/>
-      <sdoConfig idx="6093h" subIndx="1"><sdoDataRaw data="00 00 00 01"/></sdoConfig> <!-- P1.044 E-Gear ratio numerator (N1) = 16777216 -->
-      <sdoConfig idx="6093h" subIndx="2"><sdoDataRaw data="20 A1 07 00"/></sdoConfig> <!-- P1.045 E-Gear ratio denominator (M) = 500 000 -->
+      <sdoConfig idx="6093h" subIdx="1"><sdoDataRaw data="00 00 00 01"/></sdoConfig> <!-- P1.044 E-Gear ratio numerator (N1) = 16777216 -->
+      <sdoConfig idx="6093h" subIdx="2"><sdoDataRaw data="20 A1 07 00"/></sdoConfig> <!-- P1.045 E-Gear ratio denominator (M) = 500 000 -->
     </slave>
     <slave idx="3" type="DeASDB3" name="Z">
       <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
       <modParam name="opmode" value="CSP"/>
-      <sdoConfig idx="6093h" subIndx="1"><sdoDataRaw data="00 00 00 01"/></sdoConfig> <!-- P1.044 E-Gear ratio numerator (N1) = 16777216 -->
-      <sdoConfig idx="6093h" subIndx="2"><sdoDataRaw data="20 A1 07 00"/></sdoConfig> <!-- P1.045 E-Gear ratio denominator (M) = 500 000 -->
+      <sdoConfig idx="6093h" subIdx="1"><sdoDataRaw data="00 00 00 01"/></sdoConfig> <!-- P1.044 E-Gear ratio numerator (N1) = 16777216 -->
+      <sdoConfig idx="6093h" subIdx="2"><sdoDataRaw data="20 A1 07 00"/></sdoConfig> <!-- P1.045 E-Gear ratio denominator (M) = 500 000 -->
     </slave>
     <slave idx="4" type="EK1100" name="M1"/>
     <slave idx="5" type="EL1018" name="DI1"/>
