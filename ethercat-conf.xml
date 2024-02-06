@@ -1,5 +1,5 @@
 <masters>
-  <master idx="0" appTimePeriod="125000" refClockSyncCycles="1000">
+  <master idx="0" appTimePeriod="250000" refClockSyncCycles="1000">
     <slave idx="0" type="DeASDB3" name="X">
       <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
       <modParam name="opmode" value="CSP"/>
