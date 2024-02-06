@@ -4,19 +4,23 @@
       <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
       <modParam name="opmode" value="CSP"/>
     </slave>
-    <slave idx="1" type="DeASDB3" name="Y">
+    <slave idx="1" type="DeASDB3" name="Y1">
       <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
       <modParam name="opmode" value="CSP"/>
     </slave>
-    <slave idx="2" type="DeASDB3" name="Z">
+    <slave idx="2" type="DeASDB3" name="Y2">
       <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
       <modParam name="opmode" value="CSP"/>
     </slave>
-    <slave idx="3" type="EK1100" name="M1"/>
-    <slave idx="4" type="EL1018" name="DI1"/>
-    <slave idx="5" type="EL1018" name="DI2"/>
-    <slave idx="6" type="EL1018" name="DI3"/>
-    <slave idx="7" type="EL2008" name="DO1"/>
-    <slave idx="8" type="EL2008" name="DO2"/>
+    <slave idx="3" type="DeASDB3" name="Z">
+      <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
+      <modParam name="opmode" value="CSP"/>
+    </slave>
+    <slave idx="4" type="EK1100" name="M1"/>
+    <slave idx="5" type="EL1018" name="DI1"/>
+    <slave idx="6" type="EL1018" name="DI2"/>
+    <slave idx="7" type="EL1018" name="DI3"/>
+    <slave idx="8" type="EL2008" name="DO1"/>
+    <slave idx="9" type="EL2008" name="DO2"/>
   </master>
 </masters>

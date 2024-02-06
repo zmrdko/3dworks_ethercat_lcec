@@ -2,14 +2,15 @@ loadrt [KINS]KINEMATICS
 loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
 loadusr -W lcec_conf ethercat-conf.xml
 loadrt lcec
-loadrt pid names=pid.x,pid.y,pid.z
+loadrt pid names=pid.x,pid.y1,pid.y2,pid.z
 
 addf motion-command-handler   servo-thread
 addf motion-controller        servo-thread
 addf lcec.read-all            servo-thread
 addf lcec.write-all           servo-thread
 addf pid.x.do-pid-calcs       servo-thread
-addf pid.y.do-pid-calcs       servo-thread
+addf pid.y1.do-pid-calcs       servo-thread
+addf pid.y2.do-pid-calcs       servo-thread
 addf pid.z.do-pid-calcs       servo-thread
 
 #*******************
@@ -42,16 +43,9 @@ setp lcec.0.X.srv-fault-reset 		0
 
 net machine-is-on lcec.0.X.srv-fault-reset
 
-# this is the mm per REF that is othervise known as step_scale
-# this should include stupid factors for gearing
-setp lcec.0.X.pos-scale 5
-# This should not be touched for asda-a2
 
-# A3:
-# Latest test: Set Egear so that a certain number of pulses per rev is resulting (unclear how this is done with gearing)
-setp lcec.0.X.srv-pulses-per-rev 10000 #a3: 10.000
-# This is only relevant when an extenral encoder is being used.
-setp lcec.0.X.extenc-scale 0.001 # not used as we have not connected the scale
+setp lcec.0.X.pos-scale 5
+setp lcec.0.X.srv-pulses-per-rev 500000
 
 
 net x-pos-cmd    <= joint.0.motor-pos-cmd
@@ -69,67 +63,105 @@ net x-enable     => lcec.0.X.srv-enable
 #  AXIS Y
 #*******************
 
-setp   pid.y.Pgain     [JOINT_1]P
-setp   pid.y.Igain     [JOINT_1]I
-setp   pid.y.Dgain     [JOINT_1]D
-setp   pid.y.bias      [JOINT_1]BIAS
-setp   pid.y.FF0       [JOINT_1]FF0
-setp   pid.y.FF1       [JOINT_1]FF1
-setp   pid.y.FF2       [JOINT_1]FF2
-setp   pid.y.deadband  [JOINT_1]DEADBAND
-setp   pid.y.maxoutput [JOINT_1]MAX_OUTPUT
-setp   pid.y.error-previous-target true
+setp   pid.y1.Pgain     [JOINT_1]P
+setp   pid.y1.Igain     [JOINT_1]I
+setp   pid.y1.Dgain     [JOINT_1]D
+setp   pid.y1.bias      [JOINT_1]BIAS
+setp   pid.y1.FF0       [JOINT_1]FF0
+setp   pid.y1.FF1       [JOINT_1]FF1
+setp   pid.y1.FF2       [JOINT_1]FF2
+setp   pid.y1.deadband  [JOINT_1]DEADBAND
+setp   pid.y1.maxoutput [JOINT_1]MAX_OUTPUT
+setp   pid.y1.error-previous-target true
 # This setting is to limit bogus stepgen
 # velocity corrections caused by position
 # feedback sample time jitter.
-setp   pid.y.maxerror 0.012700
+setp   pid.y1.maxerror 0.012700
 
-net y-index-enable  <=> pid.y.index-enable
-net y-enable        =>  pid.y.enable
-net y-pos-cmd       =>  pid.y.command
-net y-pos-fb        =>  pid.y.feedback
-net y-output        <=  pid.y.output		
+net y1-index-enable  <=> pid.y1.index-enable
+net y1-enable        =>  pid.y1.enable
+net y1-pos-cmd       =>  pid.y1.command
+net y1-pos-fb        =>  pid.y1.feedback
+net y1-output        <=  pid.y1.output		
 
-setp lcec.0.Y.srv-enable-volt 		1
-setp lcec.0.Y.srv-fault-reset 		0
+setp lcec.0.Y1.srv-enable-volt 		1
+setp lcec.0.Y1.srv-fault-reset 		0
 
-net machine-is-on lcec.0.Y.srv-fault-reset
+net machine-is-on lcec.0.Y1.srv-fault-reset
 
-# this is the mm per REF that is othervise known as step_scale
-# this should include stupid factors for gearing
-setp lcec.0.Y.pos-scale 5
-# This should not be touched for asda-a2
-
-# A3:
-# Latest test: Set Egear so that a certain number of pulses per rev is resulting (unclear how this is done with gearing)
-setp lcec.0.Y.srv-pulses-per-rev 10000 #a3: 10.000
-# This is only relevant when an extenral encoder is being used.
-setp lcec.0.Y.extenc-scale 0.001 # not used as we have not connected the scale
+setp lcec.0.Y1.pos-scale 5
+setp lcec.0.Y1.srv-pulses-per-rev 500000
 
 
-net y-pos-cmd    <= joint.1.motor-pos-cmd
-net y-pos-cmd    => lcec.0.Y.srv-pos-cmd 
-net y-vel-cmd    <= joint.1.vel-cmd
-# net y-output     <= lcec.0.Y.srv-vel-cmd
-net y-pos-fb     <= lcec.0.Y.enc-pos-abs
-net y-pos-fb     => joint.1.motor-pos-fb
-net y-enable     <= joint.1.amp-enable-out
-net y-enable     => lcec.0.Y.srv-switch-on
-net y-enable     => lcec.0.Y.srv-enable
+
+net y1-pos-cmd    <= joint.1.motor-pos-cmd
+net y1-pos-cmd    => lcec.0.Y1.srv-pos-cmd 
+net y1-vel-cmd    <= joint.1.vel-cmd
+# net y1-output     <= lcec.0.Y1.srv-vel-cmd
+net y1-pos-fb     <= lcec.0.Y1.enc-pos-abs
+net y1-pos-fb     => joint.1.motor-pos-fb
+net y1-enable     <= joint.1.amp-enable-out
+net y1-enable     => lcec.0.Y1.srv-switch-on
+net y1-enable     => lcec.0.Y1.srv-enable
+
+
+
+
+
+setp   pid.y2.Pgain     [JOINT_2]P
+setp   pid.y2.Igain     [JOINT_2]I
+setp   pid.y2.Dgain     [JOINT_2]D
+setp   pid.y2.bias      [JOINT_2]BIAS
+setp   pid.y2.FF0       [JOINT_2]FF0
+setp   pid.y2.FF1       [JOINT_2]FF1
+setp   pid.y2.FF2       [JOINT_2]FF2
+setp   pid.y2.deadband  [JOINT_2]DEADBAND
+setp   pid.y2.maxoutput [JOINT_2]MAX_OUTPUT
+setp   pid.y2.error-previous-target true
+# This setting is to limit bogus stepgen
+# velocity corrections caused by position
+# feedback sample time jitter.
+setp   pid.y2.maxerror 0.012700
+
+net y2-index-enable  <=> pid.y2.index-enable
+net y2-enable        =>  pid.y2.enable
+net y2-pos-cmd       =>  pid.y2.command
+net y2-pos-fb        =>  pid.y2.feedback
+net y2-output        <=  pid.y2.output		
+
+setp lcec.0.Y2.srv-enable-volt 		1
+setp lcec.0.Y2.srv-fault-reset 		0
+
+net machine-is-on lcec.0.Y2.srv-fault-reset
+
+setp lcec.0.Y2.pos-scale 5
+setp lcec.0.Y2.srv-pulses-per-rev 500000
+
+
+
+net y2-pos-cmd    <= joint.2.motor-pos-cmd
+net y2-pos-cmd    => lcec.0.Y2.srv-pos-cmd 
+net y2-vel-cmd    <= joint.2.vel-cmd
+# net y2-output     <= lcec.0.Y2.srv-vel-cmd
+net y2-pos-fb     <= lcec.0.Y2.enc-pos-abs
+net y2-pos-fb     => joint.2.motor-pos-fb
+net y2-enable     <= joint.2.amp-enable-out
+net y2-enable     => lcec.0.Y2.srv-switch-on
+net y2-enable     => lcec.0.Y2.srv-enable
 
 #*******************
 #  AXIS Z
 #*******************
 
-setp   pid.z.Pgain     [JOINT_2]P
-setp   pid.z.Igain     [JOINT_2]I
-setp   pid.z.Dgain     [JOINT_2]D
-setp   pid.z.bias      [JOINT_2]BIAS
-setp   pid.z.FF0       [JOINT_2]FF0
-setp   pid.z.FF1       [JOINT_2]FF1
-setp   pid.z.FF2       [JOINT_2]FF2
-setp   pid.z.deadband  [JOINT_2]DEADBAND
-setp   pid.z.maxoutput [JOINT_2]MAX_OUTPUT
+setp   pid.z.Pgain     [JOINT_3]P
+setp   pid.z.Igain     [JOINT_3]I
+setp   pid.z.Dgain     [JOINT_3]D
+setp   pid.z.bias      [JOINT_3]BIAS
+setp   pid.z.FF0       [JOINT_3]FF0
+setp   pid.z.FF1       [JOINT_3]FF1
+setp   pid.z.FF2       [JOINT_3]FF2
+setp   pid.z.deadband  [JOINT_3]DEADBAND
+setp   pid.z.maxoutput [JOINT_3]MAX_OUTPUT
 setp   pid.z.error-previous-target true
 # This setting is to limit bogus stepgen
 # velocity corrections caused by position
@@ -147,25 +179,17 @@ setp lcec.0.Z.srv-fault-reset 		0
 
 net machine-is-on lcec.0.Z.srv-fault-reset
 
-# this is the mm per REF that is othervise known as step_scale
-# this should include stupid factors for gearing
 setp lcec.0.Z.pos-scale 5
-# This should not be touched for asda-a2
-
-# A3:
-# Latest test: Set Egear so that a certain number of pulses per rev is resulting (unclear how this is done with gearing)
-setp lcec.0.Z.srv-pulses-per-rev 10000 #a3: 10.000
-# This is only relevant when an extenral encoder is being used.
-setp lcec.0.Z.extenc-scale 0.001 # not used as we have not connected the scale
+setp lcec.0.Z.srv-pulses-per-rev 500000
 
 
-net z-pos-cmd    <= joint.2.motor-pos-cmd
+net z-pos-cmd    <= joint.3.motor-pos-cmd
 net z-pos-cmd    => lcec.0.Z.srv-pos-cmd 
-net z-vel-cmd    <= joint.2.vel-cmd
+net z-vel-cmd    <= joint.3.vel-cmd
 # net z-output     <= lcec.0.Z.srv-vel-cmd
 net z-pos-fb     <= lcec.0.Z.enc-pos-abs
-net z-pos-fb     => joint.2.motor-pos-fb
-net z-enable     <= joint.2.amp-enable-out
+net z-pos-fb     => joint.3.motor-pos-fb
+net z-enable     <= joint.3.amp-enable-out
 net z-enable     => lcec.0.Z.srv-switch-on
 net z-enable     => lcec.0.Z.srv-enable
 
