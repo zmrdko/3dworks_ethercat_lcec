@@ -1,5 +1,5 @@
 loadrt [KINS]KINEMATICS
-loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
+loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=30 num_aio=30
 loadusr -W lcec_conf ethercat-conf.xml
 loadrt lcec
 loadrt pid names=pid.x,pid.y1,pid.y2,pid.z
@@ -197,4 +197,4 @@ net z-enable     => lcec.0.Z.srv-enable
 #   E-STOP
 #*********************
 
-setp iocontrol.0.emc-enable-in 1
+#setp iocontrol.0.emc-enable-in 1

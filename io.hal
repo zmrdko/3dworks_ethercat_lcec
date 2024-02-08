@@ -1,0 +1,22 @@
+loadrt tp count=1
+addf tp.0 servo-thread
+setp tp.0.pt 1
+
+loadrt not count=2
+addf not.0 servo-thread
+
+loadrt timedelay count=1
+addf timedelay.0 servo-thread
+setp timedelay.0.on-delay 0.1 
+
+loadrt estop_latch count=1
+addf   estop-latch.0                        servo-thread
+
+net aa0 iocontrol.0.user-request-enable lcec.0.DO1.dout-0 timedelay.0.in estop-latch.0.reset
+net aa7 timedelay.0.out halui.estop.reset
+net aa1 estop-latch.0.ok-in iocontrol.0.user-enable-out
+net aa2 estop-latch.0.ok-out iocontrol.0.emc-enable-in
+net aa3 estop-latch.0.fault-in lcec.0.DI1.din-0-not
+net aa4 estop-latch.0.fault-out tp.0.in
+net aa5 tp.0.q not.0.in
+net aa6 not.0.out lcec.0.DO1.dout-1
