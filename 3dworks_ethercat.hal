@@ -27,10 +27,7 @@ setp   pid.x.FF2       [JOINT_0]FF2
 setp   pid.x.deadband  [JOINT_0]DEADBAND
 setp   pid.x.maxoutput [JOINT_0]MAX_OUTPUT
 setp   pid.x.error-previous-target true
-# This setting is to limit bogus stepgen
-# velocity corrections caused by position
-# feedback sample time jitter.
-setp   pid.x.maxerror 0.012700
+setp   pid.x.maxerror  0.001
 
 net x-index-enable  <=> pid.x.index-enable
 net x-enable        =>  pid.x.enable
@@ -48,15 +45,11 @@ setp lcec.0.X.pos-scale 5
 setp lcec.0.X.srv-pulses-per-rev 500000
 
 
-net x-pos-cmd    <= joint.0.motor-pos-cmd
-net x-pos-cmd    => lcec.0.X.srv-pos-cmd 
+net x-pos-cmd    <= joint.0.motor-pos-cmd => lcec.0.X.srv-pos-cmd 
 net x-vel-cmd    <= joint.0.vel-cmd
 # net x-output     <= lcec.0.X.srv-vel-cmd
-net x-pos-fb     <= lcec.0.X.enc-pos-abs
-net x-pos-fb     => joint.0.motor-pos-fb
-net x-enable     <= joint.0.amp-enable-out
-net x-enable     => lcec.0.X.srv-switch-on
-net x-enable     => lcec.0.X.srv-enable
+net x-pos-fb     <= lcec.0.X.enc-pos-abs => joint.0.motor-pos-fb  
+net x-enable     <= joint.0.amp-enable-out => lcec.0.X.srv-switch-on => lcec.0.X.srv-enable
 
 
 #*******************

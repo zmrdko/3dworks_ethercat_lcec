@@ -1,13 +1,28 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 700x475+352+299
+wm geometry . 809x867+297+40
 placeFrames 0.3706395348837209
 set ::ratio 0.3706395348837209
 set ::old_w_leftf 255
 set ::watchlist {
+    pin+servo-thread.time
     param+servo-thread.tmax
     pin+ini.0.ferror
-    pin+ini.0.min_ferror
+    pin+arduino.din.10
+    pin+arduino.din.8
+    pin+arduino.din.9
+    pin+arduino.dout.11
+    pin+arduino.dout.12
+    pin+arduino.ain.1
+    pin+qtpyvcp.feed-override.reset
+    pin+halui.feed-override.counts
+    pin+halui.feed-override.count-enable
+    pin+halui.feed-override.increase
+    pin+halui.feed-override.decrease
+    pin+halui.feed-override.direct-value
+    pin+halui.feed-override.reset
+    pin+halui.feed-override.value
+    pin+halui.feed-override.scale
 }
 set ::workmode watchhal
 set ::watchInterval 100
