@@ -2,38 +2,15 @@ loadrt [KINS]KINEMATICS
 loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=30 num_aio=30
 loadusr -W lcec_conf ethercat-conf.xml
 loadrt lcec
-loadrt pid names=pid.x,pid.y1,pid.y2,pid.z
 
 addf motion-command-handler   servo-thread
 addf motion-controller        servo-thread
 addf lcec.read-all            servo-thread
 addf lcec.write-all           servo-thread
-addf pid.x.do-pid-calcs       servo-thread
-addf pid.y1.do-pid-calcs       servo-thread
-addf pid.y2.do-pid-calcs       servo-thread
-addf pid.z.do-pid-calcs       servo-thread
 
 #*******************
 #  AXIS X
 #*******************
-
-setp   pid.x.Pgain     [JOINT_0]P
-setp   pid.x.Igain     [JOINT_0]I
-setp   pid.x.Dgain     [JOINT_0]D
-setp   pid.x.bias      [JOINT_0]BIAS
-setp   pid.x.FF0       [JOINT_0]FF0
-setp   pid.x.FF1       [JOINT_0]FF1
-setp   pid.x.FF2       [JOINT_0]FF2
-setp   pid.x.deadband  [JOINT_0]DEADBAND
-setp   pid.x.maxoutput [JOINT_0]MAX_OUTPUT
-setp   pid.x.error-previous-target true
-setp   pid.x.maxerror  0.001
-
-net x-index-enable  <=> pid.x.index-enable
-net x-enable        =>  pid.x.enable
-net x-pos-cmd       =>  pid.x.command
-net x-pos-fb        =>  pid.x.feedback
-net x-output        <=  pid.x.output		
 
 setp lcec.0.X.srv-enable-volt 		1
 setp lcec.0.X.srv-fault-reset 		0
@@ -56,27 +33,6 @@ net x-enable     <= joint.0.amp-enable-out => lcec.0.X.srv-switch-on => lcec.0.X
 #  AXIS Y
 #*******************
 
-setp   pid.y1.Pgain     [JOINT_1]P
-setp   pid.y1.Igain     [JOINT_1]I
-setp   pid.y1.Dgain     [JOINT_1]D
-setp   pid.y1.bias      [JOINT_1]BIAS
-setp   pid.y1.FF0       [JOINT_1]FF0
-setp   pid.y1.FF1       [JOINT_1]FF1
-setp   pid.y1.FF2       [JOINT_1]FF2
-setp   pid.y1.deadband  [JOINT_1]DEADBAND
-setp   pid.y1.maxoutput [JOINT_1]MAX_OUTPUT
-setp   pid.y1.error-previous-target true
-# This setting is to limit bogus stepgen
-# velocity corrections caused by position
-# feedback sample time jitter.
-setp   pid.y1.maxerror 0.012700
-
-net y1-index-enable  <=> pid.y1.index-enable
-net y1-enable        =>  pid.y1.enable
-net y1-pos-cmd       =>  pid.y1.command
-net y1-pos-fb        =>  pid.y1.feedback
-net y1-output        <=  pid.y1.output		
-
 setp lcec.0.Y1.srv-enable-volt 		1
 setp lcec.0.Y1.srv-fault-reset 		0
 
@@ -84,7 +40,6 @@ net machine-is-on lcec.0.Y1.srv-fault-reset
 
 setp lcec.0.Y1.pos-scale 5
 setp lcec.0.Y1.srv-pulses-per-rev 500000
-
 
 
 net y1-pos-cmd    <= joint.1.motor-pos-cmd
@@ -96,31 +51,6 @@ net y1-pos-fb     => joint.1.motor-pos-fb
 net y1-enable     <= joint.1.amp-enable-out
 net y1-enable     => lcec.0.Y1.srv-switch-on
 net y1-enable     => lcec.0.Y1.srv-enable
-
-
-
-
-
-setp   pid.y2.Pgain     [JOINT_2]P
-setp   pid.y2.Igain     [JOINT_2]I
-setp   pid.y2.Dgain     [JOINT_2]D
-setp   pid.y2.bias      [JOINT_2]BIAS
-setp   pid.y2.FF0       [JOINT_2]FF0
-setp   pid.y2.FF1       [JOINT_2]FF1
-setp   pid.y2.FF2       [JOINT_2]FF2
-setp   pid.y2.deadband  [JOINT_2]DEADBAND
-setp   pid.y2.maxoutput [JOINT_2]MAX_OUTPUT
-setp   pid.y2.error-previous-target true
-# This setting is to limit bogus stepgen
-# velocity corrections caused by position
-# feedback sample time jitter.
-setp   pid.y2.maxerror 0.012700
-
-net y2-index-enable  <=> pid.y2.index-enable
-net y2-enable        =>  pid.y2.enable
-net y2-pos-cmd       =>  pid.y2.command
-net y2-pos-fb        =>  pid.y2.feedback
-net y2-output        <=  pid.y2.output		
 
 setp lcec.0.Y2.srv-enable-volt 		1
 setp lcec.0.Y2.srv-fault-reset 		0
@@ -145,27 +75,6 @@ net y2-enable     => lcec.0.Y2.srv-enable
 #*******************
 #  AXIS Z
 #*******************
-
-setp   pid.z.Pgain     [JOINT_3]P
-setp   pid.z.Igain     [JOINT_3]I
-setp   pid.z.Dgain     [JOINT_3]D
-setp   pid.z.bias      [JOINT_3]BIAS
-setp   pid.z.FF0       [JOINT_3]FF0
-setp   pid.z.FF1       [JOINT_3]FF1
-setp   pid.z.FF2       [JOINT_3]FF2
-setp   pid.z.deadband  [JOINT_3]DEADBAND
-setp   pid.z.maxoutput [JOINT_3]MAX_OUTPUT
-setp   pid.z.error-previous-target true
-# This setting is to limit bogus stepgen
-# velocity corrections caused by position
-# feedback sample time jitter.
-setp   pid.z.maxerror 0.012700
-
-net z-index-enable  <=> pid.z.index-enable
-net z-enable        =>  pid.z.enable
-net z-pos-cmd       =>  pid.z.command
-net z-pos-fb        =>  pid.z.feedback
-net z-output        <=  pid.z.output		
 
 setp lcec.0.Z.srv-enable-volt 		1
 setp lcec.0.Z.srv-fault-reset 		0
