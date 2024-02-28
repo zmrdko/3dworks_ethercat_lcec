@@ -39,3 +39,7 @@ net muxselector_1_0 mux16.1.sel0 arduino.din.46
 net muxselector_1_1 mux16.1.sel1 arduino.din.47
 net muxselector_1_2 mux16.1.sel2 arduino.din.48
 net muxselector_1_3 mux16.1.sel3 arduino.din.49
+
+net muxselector_2_0 mux16.2.sel0 arduino.din.43
+net muxselector_2_1 mux16.2.sel1 arduino.din.44
+net muxselector_2_2 mux16.2.sel2 arduino.din.45

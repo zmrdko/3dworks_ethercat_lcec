@@ -5,8 +5,43 @@ placeFrames 0.3706395348837209
 set ::ratio 0.3706395348837209
 set ::old_w_leftf 255
 set ::watchlist {
+    pin+arduino.din.10
+    pin+arduino.din.43
+    pin+arduino.din.44
+    pin+arduino.din.45
+    pin+arduino.din.46
+    pin+arduino.din.47
+    pin+arduino.din.48
+    pin+arduino.din.49
+    pin+arduino.din.50
+    pin+arduino.din.51
+    pin+arduino.din.52
+    pin+arduino.din.53
+    pin+arduino.din.8
+    pin+arduino.din.9
+    pin+mux8.0.in0
+    pin+mux8.0.in1
+    pin+mux8.0.in2
+    pin+mux8.0.in3
+    pin+mux8.0.in4
+    pin+mux8.0.in5
+    pin+mux8.0.in6
+    pin+mux8.0.in7
+    pin+mux8.0.out
+    pin+mux8.0.sel0
+    pin+mux8.0.sel1
+    pin+mux8.0.sel2
+    pin+mux8.0.time
+    pin+halui.rapid-override.count-enable
+    pin+halui.rapid-override.counts
+    pin+halui.rapid-override.decrease
+    pin+halui.rapid-override.direct-value
+    pin+halui.rapid-override.increase
+    pin+halui.rapid-override.reset
+    pin+halui.rapid-override.scale
+    pin+halui.rapid-override.value
 }
-set ::workmode showhal
+set ::workmode watchhal
 set ::watchInterval 100
 set ::col1_width 100
 set ::ffmts 
