@@ -1,0 +1,25 @@
+loadusr arduino-connector
+loadrt mux16 count=1
+
+addf mux16.0 servo-thread
+
+setp halui.spindle.0.override.direct-value true
+setp mux16.0.debounce-time 0.1
+setp mux16.0.in00  14
+setp mux16.0.in01  15
+setp mux16.0.in02  13
+setp mux16.0.in03  12
+setp mux16.0.in04  4
+setp mux16.0.in05  5
+setp mux16.0.in06  6
+setp mux16.0.in07  7
+setp mux16.0.in08  9
+setp mux16.0.in09  8
+setp mux16.0.in10  10
+setp mux16.0.in11  11
+setp mux16.0.in12 6
+setp mux16.0.in13 7
+setp mux16.0.in14 5
+setp mux16.0.in15 15
+
+net spindleoverride1 mux16.0.out-s halui.spindle.0.override.counts

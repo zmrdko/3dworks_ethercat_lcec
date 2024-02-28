@@ -1,6 +1,6 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 809x867+297+40
+wm geometry . 809x867+207+78
 placeFrames 0.3706395348837209
 set ::ratio 0.3706395348837209
 set ::old_w_leftf 255
@@ -8,12 +8,6 @@ set ::watchlist {
     pin+servo-thread.time
     param+servo-thread.tmax
     pin+ini.0.ferror
-    pin+arduino.din.10
-    pin+arduino.din.8
-    pin+arduino.din.9
-    pin+arduino.dout.11
-    pin+arduino.dout.12
-    pin+arduino.ain.1
     pin+qtpyvcp.feed-override.reset
     pin+halui.feed-override.counts
     pin+halui.feed-override.count-enable
@@ -23,6 +17,33 @@ set ::watchlist {
     pin+halui.feed-override.reset
     pin+halui.feed-override.value
     pin+halui.feed-override.scale
+    param+lcec.0.X.enc-pprev-scale
+    param+lcec.0.X.pos-scale
+    param+lcec.0.X.srv-pulses-per-rev
+    param+lcec.0.pll-step
+    param+lcec.0.pll-max-err
+    param+lcec.0.read.tmax
+    param+lcec.0.read.tmax-increased
+    param+lcec.0.write.tmax
+    param+lcec.0.write.tmax-increased
+    pin+arduino.din.50
+    pin+arduino.din.51
+    pin+arduino.din.52
+    pin+arduino.din.53
+    pin+mux16.0.out-s
+    pin+mux16.0.out-f
+    pin+mux16.0.sel0
+    pin+mux16.0.sel1
+    pin+mux16.0.sel2
+    pin+mux16.0.sel3
+    pin+halui.spindle.0.override.count-enable
+    pin+halui.spindle.0.override.counts
+    pin+halui.spindle.0.override.decrease
+    pin+halui.spindle.0.override.direct-value
+    pin+halui.spindle.0.override.increase
+    pin+halui.spindle.0.override.reset
+    pin+halui.spindle.0.override.scale
+    pin+halui.spindle.0.override.value
 }
 set ::workmode watchhal
 set ::watchInterval 100
