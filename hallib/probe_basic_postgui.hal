@@ -30,7 +30,12 @@ net probe-in  <=  qtpyvcp.probe-led.on
 #net servo3 qtpyvcp.servo3.on lcec.0.Y2.slave-state-op
 #net servo4 qtpyvcp.servo4.on lcec.0.Z.slave-state-op
 
-net muxselector0 mux16.0.sel0 arduino.din.50
-net muxselector1 mux16.0.sel1 arduino.din.51
-net muxselector2 mux16.0.sel2 arduino.din.52
-net muxselector3 mux16.0.sel3 arduino.din.53
+net muxselector_0_0 mux16.0.sel0 arduino.din.50
+net muxselector_0_1 mux16.0.sel1 arduino.din.51
+net muxselector_0_2 mux16.0.sel2 arduino.din.52
+net muxselector_0_3 mux16.0.sel3 arduino.din.53
+
+net muxselector_1_0 mux16.1.sel0 arduino.din.46
+net muxselector_1_1 mux16.1.sel1 arduino.din.47
+net muxselector_1_2 mux16.1.sel2 arduino.din.48
+net muxselector_1_3 mux16.1.sel3 arduino.din.49
