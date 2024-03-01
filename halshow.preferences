@@ -1,8 +1,8 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 809x867+932+50
-placeFrames 0.3706395348837209
-set ::ratio 0.3706395348837209
+wm geometry . 809x867+147+136
+placeFrames 0.36637390213299875
+set ::ratio 0.36637390213299875
 set ::old_w_leftf 255
 set ::watchlist {
     pin+arduino.din.10
@@ -19,19 +19,6 @@ set ::watchlist {
     pin+arduino.din.53
     pin+arduino.din.8
     pin+arduino.din.9
-    pin+mux8.0.in0
-    pin+mux8.0.in1
-    pin+mux8.0.in2
-    pin+mux8.0.in3
-    pin+mux8.0.in4
-    pin+mux8.0.in5
-    pin+mux8.0.in6
-    pin+mux8.0.in7
-    pin+mux8.0.out
-    pin+mux8.0.sel0
-    pin+mux8.0.sel1
-    pin+mux8.0.sel2
-    pin+mux8.0.time
     pin+halui.rapid-override.count-enable
     pin+halui.rapid-override.counts
     pin+halui.rapid-override.decrease
@@ -40,6 +27,26 @@ set ::watchlist {
     pin+halui.rapid-override.reset
     pin+halui.rapid-override.scale
     pin+halui.rapid-override.value
+    pin+arduino.dout.11
+    pin+arduino.dout.12
+    pin+halui.program.run
+    pin+halui.program.pause
+    pin+halui.program.resume
+    pin+halui.program.stop
+    pin+halui.program.step
+    pin+halui.mode.auto
+    pin+halui.mode.manual
+    pin+halui.mode.mdi
+    pin+halui.program.block-delete.is-on
+    pin+halui.program.block-delete.off
+    pin+halui.program.block-delete.on
+    pin+halui.program.is-idle
+    pin+halui.program.is-paused
+    pin+halui.program.is-running
+    pin+halui.program.optional-stop.is-on
+    pin+halui.program.optional-stop.off
+    pin+halui.program.optional-stop.on
+    pin+spindle.0.at-speed
 }
 set ::workmode watchhal
 set ::watchInterval 100
