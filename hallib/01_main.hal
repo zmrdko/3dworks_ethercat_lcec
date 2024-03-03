@@ -103,7 +103,8 @@ net z-enable     => lcec.0.Z1.srv-enable
 #  MANUAL TOOL CHANGE
 #=======================================================================
 loadusr -W hal_manualtoolchange
-net tool-change-request iocontrol.0.tool-change => hal_manualtoolchange.change
-net tool-change-confirmed iocontrol.0.tool-changed <= hal_manualtoolchange.changed
-net tool-number iocontrol.0.tool-prep-number => hal_manualtoolchange.number
-net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+net tool-change-request    <= iocontrol.0.tool-change
+net tool-change-confirmed  => iocontrol.0.tool-changed
+net tool-number            <= iocontrol.0.tool-prep-number
+net tool-prepare-loopback  <= iocontrol.0.tool-prepare
+net tool-prepare-loopback  => iocontrol.0.tool-prepared
