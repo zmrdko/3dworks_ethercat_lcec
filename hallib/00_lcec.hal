@@ -1,0 +1,3 @@
+#NOTWOPASS
+loadusr -W lcec_conf ethercat-conf.xml
+loadrt lcec

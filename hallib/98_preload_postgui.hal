@@ -1,0 +1,6 @@
+loadrt time
+addf time.0 servo-thread
+
+loadrt not names=not.timer,not.arduino12
+addf not.timer servo-thread
+addf not.arduino12 servo-thread

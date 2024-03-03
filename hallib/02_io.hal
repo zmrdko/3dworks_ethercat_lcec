@@ -1,0 +1,71 @@
+loadrt tp                  names=tp.estop
+addf tp.estop              servo-thread
+setp tp.estop.pt           1
+
+loadrt not                 names=not.estop
+addf not.estop             servo-thread
+
+loadrt timedelay           names=timedelay.estop
+addf timedelay.estop       servo-thread
+setp timedelay.estop.on-delay 0.1 
+
+loadrt estop_latch count=1
+addf estop-latch.0         servo-thread
+
+net estop.reset_input      <= lcec.0.DO1.dout-0
+net estop.reset_input      => iocontrol.0.user-request-enable
+net estop.reset_input      => timedelay.estop.in
+net estop.reset_input      => estop-latch.0.reset
+
+net estop.reset_timedelay  <= timedelay.estop.out
+net estop.reset_timedelay  => halui.estop.reset
+
+net estop.reset_enable     <= iocontrol.0.user-enable-out
+net estop.reset_enable     => estop-latch.0.ok-in
+
+net estop.reset_emc_enable <= estop-latch.0.ok-out
+net estop.reset_emc_enable => iocontrol.0.emc-enable-in
+
+net estop.fault_in         <= lcec.0.DI1.din-0-not
+net estop.fault_in         => estop-latch.0.fault-in
+
+net estop.fault_out        <= estop-latch.0.fault-out
+net estop.fault_out        => tp.estop.in
+
+net estop.not_in           <= tp.estop.q
+net estop.not_in           => not.estop.in
+
+net estop.out              <= not.estop.out
+net estop.out              => lcec.0.DO1.dout-1
+
+loadrt and2 names=and2.pause-resume.0,and2.pause-resume.1,and2.pause-resume.2,and2.pause-resume.3
+addf and2.pause-resume.0 servo-thread
+addf and2.pause-resume.1 servo-thread
+addf and2.pause-resume.2 servo-thread
+addf and2.pause-resume.3 servo-thread
+
+loadrt toggle2nist names=toggle2nist.pause-resume.0
+addf toggle2nist.pause-resume.0 servo-thread
+
+loadrt or2 names=or2.pause-resume.0
+addf or2.pause-resume.0 servo-thread
+
+loadrt toggle names=toggle.pause-resume.0
+addf toggle.pause-resume.0 servo-thread
+
+# Pause/Resume Section
+net pause-resume-btn and2.pause-resume.0.in0 and2.pause-resume.1.in0
+net prog-paused toggle2nist.pause-resume.0.is-on and2.pause-resume.0.in1 and2.pause-resume.3.in1 <= halui.program.is-paused
+net run-on and2.pause-resume.1.in1 <= halui.program.is-running
+net pause-sig or2.pause-resume.0.in0 <= and2.pause-resume.0.out
+net resume-sig or2.pause-resume.0.in1 <= and2.pause-resume.1.out
+net toggle-ok toggle.pause-resume.0.in <= or2.pause-resume.0.out
+net togglesig toggle2nist.pause-resume.0.in <= toggle.pause-resume.0.out
+net toggleon halui.program.pause <= toggle2nist.pause-resume.0.on
+net toggleoff halui.program.resume <= toggle2nist.pause-resume.0.off
+
+# Run/Step Section
+net run-step-btn and2.pause-resume.2.in0 and2.pause-resume.3.in0
+net prog-running and2.pause-resume.2.in1 <= halui.program.is-idle
+net run-sig halui.mode.auto halui.program.run <= and2.pause-resume.2.out
+net step-sig halui.program.step <= and2.pause-resume.3.out

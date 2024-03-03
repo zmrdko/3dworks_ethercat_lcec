@@ -5,48 +5,20 @@ placeFrames 0.36637390213299875
 set ::ratio 0.36637390213299875
 set ::old_w_leftf 255
 set ::watchlist {
-    pin+arduino.din.10
-    pin+arduino.din.43
-    pin+arduino.din.44
-    pin+arduino.din.45
-    pin+arduino.din.46
-    pin+arduino.din.47
-    pin+arduino.din.48
-    pin+arduino.din.49
-    pin+arduino.din.50
-    pin+arduino.din.51
-    pin+arduino.din.52
-    pin+arduino.din.53
-    pin+arduino.din.8
-    pin+arduino.din.9
-    pin+halui.rapid-override.count-enable
-    pin+halui.rapid-override.counts
-    pin+halui.rapid-override.decrease
-    pin+halui.rapid-override.direct-value
-    pin+halui.rapid-override.increase
-    pin+halui.rapid-override.reset
-    pin+halui.rapid-override.scale
-    pin+halui.rapid-override.value
-    pin+arduino.dout.11
-    pin+arduino.dout.12
-    pin+halui.program.run
+    pin+arduino.din.39
+    pin+arduino.din.40
+    pin+arduino.din.41
+    pin+arduino.din.42
+    pin+halui.max-velocity.count-enable
+    pin+halui.max-velocity.counts
+    pin+halui.max-velocity.decrease
+    pin+halui.max-velocity.direct-value
+    pin+halui.max-velocity.increase
+    pin+halui.max-velocity.scale
+    pin+halui.max-velocity.value
+    pin+arduino.din.11
+    pin+arduino.din.12
     pin+halui.program.pause
-    pin+halui.program.resume
-    pin+halui.program.stop
-    pin+halui.program.step
-    pin+halui.mode.auto
-    pin+halui.mode.manual
-    pin+halui.mode.mdi
-    pin+halui.program.block-delete.is-on
-    pin+halui.program.block-delete.off
-    pin+halui.program.block-delete.on
-    pin+halui.program.is-idle
-    pin+halui.program.is-paused
-    pin+halui.program.is-running
-    pin+halui.program.optional-stop.is-on
-    pin+halui.program.optional-stop.off
-    pin+halui.program.optional-stop.on
-    pin+spindle.0.at-speed
 }
 set ::workmode watchhal
 set ::watchInterval 100

@@ -1,0 +1,49 @@
+net prog-running not.timer.in <= halui.program.is-idle
+net prog-paused halui.program.is-paused => time.0.pause
+net cycle-timer time.0.start <= not.timer.out
+net cycle-seconds qtpyvcp.timerseconds.in <= time.0.seconds
+net cycle-minutes qtpyvcp.timerminutes.in <= time.0.minutes
+net cycle-hours qtpyvcp.timerhours.in <= time.0.hours
+# *** Time items required for Probe Basic to run ***
+
+#  ---manual tool change signals---
+#net tool-change-request     =>  qtpyvcp_manualtoolchange.change
+#net tool-change-confirmed   <=  qtpyvcp_manualtoolchange.changed
+#net tool-number             =>  qtpyvcp_manualtoolchange.number
+
+# *** Probe graphic simulation trigger push probe tip ***
+#net probe-in  =>  qtpyvcp.probe-in.out
+net probe-in  <=  qtpyvcp.probe-led.on
+
+# *** Set line below for actual spindle readout from your hal file ***
+#net spindle-rpm-filtered scale_to_rpm.out  =>  qtpyvcp.spindle-encoder-rpm.in
+
+
+#net servo1 qtpyvcp.servo1.on lcec.0.X.slave-state-op
+#net servo2 qtpyvcp.servo2.on lcec.0.Y1.slave-state-op
+#net servo3 qtpyvcp.servo3.on lcec.0.Y2.slave-state-op
+#net servo4 qtpyvcp.servo4.on lcec.0.Z.slave-state-op
+
+net muxselector_0_0 mux16.spindle-override.sel0 arduino.din.50
+net muxselector_0_1 mux16.spindle-override.sel1 arduino.din.51
+net muxselector_0_2 mux16.spindle-override.sel2 arduino.din.52
+net muxselector_0_3 mux16.spindle-override.sel3 arduino.din.53
+
+net muxselector_1_0 mux16.feed-override.sel0 arduino.din.46
+net muxselector_1_1 mux16.feed-override.sel1 arduino.din.47
+net muxselector_1_2 mux16.feed-override.sel2 arduino.din.48
+net muxselector_1_3 mux16.feed-override.sel3 arduino.din.49
+
+net muxselector_2_0 mux16.rapid-override.sel0 arduino.din.43
+net muxselector_2_1 mux16.rapid-override.sel1 arduino.din.44
+net muxselector_2_2 mux16.rapid-override.sel2 arduino.din.45
+
+net muxselector_3_0 mux16.max-velocity.sel0 arduino.din.39
+net muxselector_3_1 mux16.max-velocity.sel1 arduino.din.40
+net muxselector_3_2 mux16.max-velocity.sel2 arduino.din.41
+net muxselector_3_3 mux16.max-velocity.sel3 arduino.din.42
+
+net pause-resume-btn arduino.din.11
+
+net run-step-btn-not arduino.din.12 not.arduino12.in
+net run-step-btn not.arduino12.out

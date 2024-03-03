@@ -1,0 +1,89 @@
+loadusr arduino-connector
+loadrt mux16 names=mux16.rapid-override,mux16.spindle-override,mux16.feed-override,mux16.max-velocity
+
+addf mux16.rapid-override                   servo-thread
+addf mux16.spindle-override                 servo-thread
+addf mux16.feed-override                    servo-thread
+addf mux16.max-velocity                     servo-thread
+
+setp halui.rapid-override.direct-value      true
+setp halui.rapid-override.scale             0.01
+setp mux16.rapid-override.debounce-time     0.1
+setp mux16.rapid-override.in00              0
+setp mux16.rapid-override.in01             10
+setp mux16.rapid-override.in02              2
+setp mux16.rapid-override.in03              1
+setp mux16.rapid-override.in04            100
+setp mux16.rapid-override.in05             50
+setp mux16.rapid-override.in06              6
+setp mux16.rapid-override.in07              0
+net seiki.0.rapid_override               <= mux16.rapid-override.out-s
+net seiki.0.rapid_override               => halui.rapid-override.counts
+
+setp halui.spindle.0.override.direct-value  true
+setp halui.spindle.0.override.scale         0.1
+setp mux16.spindle-override.debounce-time   0.1
+setp mux16.spindle-override.in00           14
+setp mux16.spindle-override.in01           15
+setp mux16.spindle-override.in02            9
+setp mux16.spindle-override.in03            8
+setp mux16.spindle-override.in04           13
+setp mux16.spindle-override.in05           12
+setp mux16.spindle-override.in06           10
+setp mux16.spindle-override.in07           11
+setp mux16.spindle-override.in08            9
+setp mux16.spindle-override.in09            8
+setp mux16.spindle-override.in10            6
+setp mux16.spindle-override.in11            7
+setp mux16.spindle-override.in12           12
+setp mux16.spindle-override.in13           13
+setp mux16.spindle-override.in14            5
+setp mux16.spindle-override.in15           15
+net seiki.0.spindle_override             <= mux16.spindle-override.out-s
+net seiki.0.spindle_override             => halui.spindle.0.override.counts
+
+setp halui.feed-override.direct-value       true
+setp halui.feed-override.scale              0.1
+setp mux16.feed-override.debounce-time      0.1
+setp mux16.feed-override.in00              13
+setp mux16.feed-override.in01              12
+setp mux16.feed-override.in02               8
+setp mux16.feed-override.in03               9
+setp mux16.feed-override.in04              15
+setp mux16.feed-override.in05              11
+setp mux16.feed-override.in06               7
+setp mux16.feed-override.in07              10
+setp mux16.feed-override.in08              18
+setp mux16.feed-override.in09              20
+setp mux16.feed-override.in10               3
+setp mux16.feed-override.in11               1
+setp mux16.feed-override.in12              16
+setp mux16.feed-override.in13              13
+setp mux16.feed-override.in14               5
+setp mux16.feed-override.in15               0
+net seiki.0.feed_override                <= mux16.feed-override.out-s 
+net seiki.0.feed_override                => halui.feed-override.counts
+
+
+setp halui.max-velocity.direct-value            true
+setp halui.max-velocity.scale                   0.0001
+setp mux16.max-velocity.debounce-time           0.1
+setp mux16.max-velocity.in00                33334
+setp mux16.max-velocity.in01               333334
+setp mux16.max-velocity.in02                83334
+setp mux16.max-velocity.in03               233334
+setp mux16.max-velocity.in04                 6834
+setp mux16.max-velocity.in05                 1667
+setp mux16.max-velocity.in06                 3334
+setp mux16.max-velocity.in07                 2334
+setp mux16.max-velocity.in08                23334
+setp mux16.max-velocity.in09               833334
+setp mux16.max-velocity.in10                16667
+setp mux16.max-velocity.in11                   11
+setp mux16.max-velocity.in12                 8667
+setp mux16.max-velocity.in13                  834
+setp mux16.max-velocity.in14                12000
+setp mux16.max-velocity.in15                    0
+net seiki.0.feedrate                     <= mux16.max-velocity.out-s
+net seiki.0.feedrate                     => halui.max-velocity.counts
+
