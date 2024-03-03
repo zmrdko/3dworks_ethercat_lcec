@@ -12,7 +12,7 @@ net tool-change-confirmed   <=  qtpyvcp_manualtoolchange.changed
 net tool-number             =>  qtpyvcp_manualtoolchange.number
 
 # *** Probe graphic simulation trigger push probe tip ***
-#net probe-in  =>  qtpyvcp.probe-in.out
+net probe-in  =>  lcec.0.DI1.din-1-not
 net probe-in  <=  qtpyvcp.probe-led.on
 
 # *** Set line below for actual spindle readout from your hal file ***

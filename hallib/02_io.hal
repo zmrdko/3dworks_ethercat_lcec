@@ -69,3 +69,6 @@ net run-step-btn and2.pause-resume.2.in0 and2.pause-resume.3.in0
 net prog-running and2.pause-resume.2.in1 <= halui.program.is-idle
 net run-sig halui.mode.auto halui.program.run <= and2.pause-resume.2.out
 net step-sig halui.program.step <= and2.pause-resume.3.out
+
+# probe input
+net probe-in  =>  motion.probe-input
