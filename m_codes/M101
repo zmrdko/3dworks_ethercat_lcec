@@ -1,0 +1,3 @@
+#!/bin/bash
+halcmd setp spindle.0.inhibit false
+exit 0

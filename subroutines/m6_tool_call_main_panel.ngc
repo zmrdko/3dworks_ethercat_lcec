@@ -17,7 +17,12 @@ o100 endif
 
 o110 if [#<tool_number_entry_main_panel> EQ #<probe_tool_number>]
   S0 M5
+  M100
 o110 endif
+
+o120 if [#<tool_number_entry_main_panel> NE #<probe_tool_number>]
+  M101
+o120 endif
 
 o<program_coolant> call
 
