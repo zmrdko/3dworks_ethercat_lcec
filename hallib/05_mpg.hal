@@ -1,0 +1,4 @@
+# Jog Pendant
+net xjog arduino.counter.0 axis.x.jog-counts
+setp axis.x.jog-enable true
+setp axis.x.jog-scale 0.1

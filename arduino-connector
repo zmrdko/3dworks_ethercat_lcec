@@ -21,13 +21,13 @@ import serial, time, hal
 #	To begin Transmitting Ready is send out and expects to receive E: to establish connection. Afterwards Data is exchanged.
 #	Data is only send everythime it changes once.
 
-#	Inputs & Toggle Inputs  = 'I' -write only  -Pin State: 0,1
+#	Inputs & Toggle Inputs	= 'I' -write only  -Pin State: 0,1
 #	Outputs				 	= 'O' -read only   -Pin State: 0,1
 #	PWM Outputs			 	= 'P' -read only   -Pin State: 0-255
-#   Digital LED Outputs	 	= 'D' -read only   -Pin State: 0,1
-#	Analog Inputs		   	= 'A' -write only  -Pin State: 0-1024
-#	Latching Potentiometers = 'L' -write only  -Pin State: 0-max Position
-#	binary encoded Selector = 'K' -write only  -Pin State: 0-32
+#	Digital LED Outputs	 	= 'D' -read only   -Pin State: 0,1
+#	Analog Inputs			= 'A' -write only  -Pin State: 0-1024
+#	Latching Potentiometers	= 'L' -write only  -Pin State: 0-max Position
+#	binary encoded Selector	= 'K' -write only  -Pin State: 0-32
 #	Matrix Keypad			= 'M' -write only  -Pin State: 0,1
 #	Multiplexed LEDs		= 'M' -read only   -Pin State: 0,1
 #	Quadrature Encoders 	= 'R' -write only  -Pin State: 0(down),1(up),-2147483648 to 2147483647(counter)
@@ -55,8 +55,8 @@ connection = '/dev/ttyUSB_SEIKI'  #this is the port your Arduino is connected to
 
 
 # Set how many Inputs you have programmed in Arduino and which pins are Inputs, Set Inputs = 0 to disable
-Inputs = 19
-InPinmap = [8, 9, 11, 12, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53] #Which Pins are Inputs?
+Inputs = 17
+InPinmap = [11, 12, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53] #Which Pins are Inputs?
 
 # Set how many Toggled ("sticky") Inputs you have programmed in Arduino and which pins are Toggled Inputs , Set SInputs = 0 to disable
 SInputs = 1
@@ -102,8 +102,8 @@ SetBinSelKnobValue = [[0]] #0 = disable 1= enable
 BinSelKnobvalues = [[180,190,200,0,0,0,0,0,0,0,0,0,0,0,0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170]]
 
 #Enable Quadrature Encoders
-QuadEncs = 0
-QuadEncSig = [2,2] 
+QuadEncs = 1
+QuadEncSig = [2] 
 #1 = send up or down signal (typical use for selecting modes in hal)
 #2 = send position signal (typical use for MPG wheel)
 
