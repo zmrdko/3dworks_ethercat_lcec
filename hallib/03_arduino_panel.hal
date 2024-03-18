@@ -1,4 +1,4 @@
-loadusr arduino-connector
+loadusr -Wn seiki arduino-connector -n seiki
 loadrt mux16 names=mux16.rapid-override,mux16.spindle-override,mux16.feed-override,mux16.max-velocity
 
 addf mux16.rapid-override                   servo-thread
@@ -87,3 +87,26 @@ setp mux16.max-velocity.in15                    0
 net seiki.0.feedrate                     <= mux16.max-velocity.out-s
 net seiki.0.feedrate                     => halui.max-velocity.counts
 
+net muxselector_0_0 mux16.spindle-override.sel0 seiki.din.50
+net muxselector_0_1 mux16.spindle-override.sel1 seiki.din.51
+net muxselector_0_2 mux16.spindle-override.sel2 seiki.din.52
+net muxselector_0_3 mux16.spindle-override.sel3 seiki.din.53
+
+net muxselector_1_0 mux16.feed-override.sel0 seiki.din.46
+net muxselector_1_1 mux16.feed-override.sel1 seiki.din.47
+net muxselector_1_2 mux16.feed-override.sel2 seiki.din.48
+net muxselector_1_3 mux16.feed-override.sel3 seiki.din.49
+
+net muxselector_2_0 mux16.rapid-override.sel0 seiki.din.43
+net muxselector_2_1 mux16.rapid-override.sel1 seiki.din.44
+net muxselector_2_2 mux16.rapid-override.sel2 seiki.din.45
+
+net muxselector_3_0 mux16.max-velocity.sel0 seiki.din.39
+net muxselector_3_1 mux16.max-velocity.sel1 seiki.din.40
+net muxselector_3_2 mux16.max-velocity.sel2 seiki.din.41
+net muxselector_3_3 mux16.max-velocity.sel3 seiki.din.42
+
+net pause-resume-btn seiki.din.11
+
+net run-step-btn-not seiki.din.12 not.arduino12.in
+net run-step-btn not.arduino12.out

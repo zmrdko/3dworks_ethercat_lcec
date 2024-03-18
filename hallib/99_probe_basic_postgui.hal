@@ -18,47 +18,7 @@ net probe-in  <=  qtpyvcp.probe-led.on
 # *** Set line below for actual spindle readout from your hal file ***
 #net spindle-rpm-filtered scale_to_rpm.out  =>  qtpyvcp.spindle-encoder-rpm.in
 
-
 #net servo1 qtpyvcp.servo1.on lcec.0.X.slave-state-op
 #net servo2 qtpyvcp.servo2.on lcec.0.Y1.slave-state-op
 #net servo3 qtpyvcp.servo3.on lcec.0.Y2.slave-state-op
 #net servo4 qtpyvcp.servo4.on lcec.0.Z.slave-state-op
-
-net muxselector_0_0 mux16.spindle-override.sel0 arduino.din.50
-net muxselector_0_1 mux16.spindle-override.sel1 arduino.din.51
-net muxselector_0_2 mux16.spindle-override.sel2 arduino.din.52
-net muxselector_0_3 mux16.spindle-override.sel3 arduino.din.53
-
-net muxselector_1_0 mux16.feed-override.sel0 arduino.din.46
-net muxselector_1_1 mux16.feed-override.sel1 arduino.din.47
-net muxselector_1_2 mux16.feed-override.sel2 arduino.din.48
-net muxselector_1_3 mux16.feed-override.sel3 arduino.din.49
-
-net muxselector_2_0 mux16.rapid-override.sel0 arduino.din.43
-net muxselector_2_1 mux16.rapid-override.sel1 arduino.din.44
-net muxselector_2_2 mux16.rapid-override.sel2 arduino.din.45
-
-net muxselector_3_0 mux16.max-velocity.sel0 arduino.din.39
-net muxselector_3_1 mux16.max-velocity.sel1 arduino.din.40
-net muxselector_3_2 mux16.max-velocity.sel2 arduino.din.41
-net muxselector_3_3 mux16.max-velocity.sel3 arduino.din.42
-
-
-# <MPG>
-net muxselector_4_0 mux16.xspeedsel.sel0 arduino.din.9
-net muxselector_4_1 mux16.xspeedsel.sel1 arduino.din.8
-
-# The Axis select inputs
-net demux-axissel-00 demux.axissel.sel-bit-00 arduino.din.7
-net demux-axissel-01 demux.axissel.sel-bit-01 arduino.din.6
-net demux-axissel-02 demux.axissel.sel-bit-02 arduino.din.5
-
-# The output from encoder counts is sent to ilowpass
-net mpg-out ilowpass.0.in <= arduino.counter.0
-
-# </MPG>
-
-net pause-resume-btn arduino.din.11
-
-net run-step-btn-not arduino.din.12 not.arduino12.in
-net run-step-btn not.arduino12.out

@@ -59,3 +59,18 @@ net encoder-counts  <= ilowpass.0.out
 net encoder-counts => axis.x.jog-counts
 net encoder-counts => axis.y.jog-counts
 net encoder-counts => axis.z.jog-counts
+
+
+# <MPG>
+net muxselector_4_0 mux16.xspeedsel.sel0 seiki.din.9
+net muxselector_4_1 mux16.xspeedsel.sel1 seiki.din.8
+
+# The Axis select inputs
+net demux-axissel-00 demux.axissel.sel-bit-00 seiki.din.7
+net demux-axissel-01 demux.axissel.sel-bit-01 seiki.din.6
+net demux-axissel-02 demux.axissel.sel-bit-02 seiki.din.5
+
+# The output from encoder counts is sent to ilowpass
+net mpg-out ilowpass.0.in <= seiki.counter.0
+
+# </MPG>
