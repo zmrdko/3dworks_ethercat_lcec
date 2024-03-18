@@ -1,4 +1,61 @@
-# Jog Pendant
-net xjog arduino.counter.0 axis.x.jog-counts
-setp axis.x.jog-enable true
-setp axis.x.jog-scale 0.1
+loadrt mux16 names=mux16.xspeedsel
+addf mux16.xspeedsel servo-thread
+
+loadrt demux names=demux.axissel
+addf demux.axissel servo-thread
+
+loadrt ilowpass
+addf ilowpass.0 servo-thread
+
+setp ilowpass.0.scale 1000
+setp ilowpass.0.gain 0.01
+
+# For velocity mode, set to 1
+# In velocity mode the axis stops when the dial is stopped
+# even if that means the commanded motion is not completed,
+# For position mode (the default), set to 0
+# In position mode the axis will move exactly jog-scale
+# units for each count, regardless of how long that might take,
+setp axis.x.jog-vel-mode 0
+setp axis.y.jog-vel-mode 0
+setp axis.z.jog-vel-mode 0
+
+# This sets the scale that will be used based on the input to the mux4
+# The scale used here has to be multiplied by the ilowpass scale
+setp mux16.xspeedsel.debounce-time   0.1
+setp mux16.xspeedsel.in00            0.00001
+setp mux16.xspeedsel.in01            1
+setp mux16.xspeedsel.in02            0.0001
+setp mux16.xspeedsel.in03            0.001
+setp mux16.xspeedsel.in04            4
+setp mux16.xspeedsel.in05            5
+setp mux16.xspeedsel.in06            6
+setp mux16.xspeedsel.in07            7
+setp mux16.xspeedsel.in08            8
+setp mux16.xspeedsel.in09            9
+setp mux16.xspeedsel.in10           10
+setp mux16.xspeedsel.in11           11
+setp mux16.xspeedsel.in12           12
+setp mux16.xspeedsel.in13           13
+setp mux16.xspeedsel.in14           14
+setp mux16.xspeedsel.in15           15
+
+
+# The output from the mux4 is sent to each axis jog scale
+net mpg-scale <= mux16.xspeedsel.out-f
+net mpg-scale => axis.x.jog-scale
+net mpg-scale => axis.y.jog-scale
+net mpg-scale => axis.z.jog-scale
+
+
+# The Axis select inputs
+net mpg-x axis.x.jog-enable <= demux.axissel.out-07
+net mpg-y axis.y.jog-enable <= demux.axissel.out-03
+net mpg-z axis.z.jog-enable <= demux.axissel.out-01
+
+# The output from the ilowpass is sent to each axis jog count
+# Only the selected axis will move.
+net encoder-counts  <= ilowpass.0.out
+net encoder-counts => axis.x.jog-counts
+net encoder-counts => axis.y.jog-counts
+net encoder-counts => axis.z.jog-counts

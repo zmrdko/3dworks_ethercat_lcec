@@ -43,6 +43,21 @@ net muxselector_3_1 mux16.max-velocity.sel1 arduino.din.40
 net muxselector_3_2 mux16.max-velocity.sel2 arduino.din.41
 net muxselector_3_3 mux16.max-velocity.sel3 arduino.din.42
 
+
+# <MPG>
+net muxselector_4_0 mux16.xspeedsel.sel0 arduino.din.9
+net muxselector_4_1 mux16.xspeedsel.sel1 arduino.din.8
+
+# The Axis select inputs
+net demux-axissel-00 demux.axissel.sel-bit-00 arduino.din.7
+net demux-axissel-01 demux.axissel.sel-bit-01 arduino.din.6
+net demux-axissel-02 demux.axissel.sel-bit-02 arduino.din.5
+
+# The output from encoder counts is sent to ilowpass
+net mpg-out ilowpass.0.in <= arduino.counter.0
+
+# </MPG>
+
 net pause-resume-btn arduino.din.11
 
 net run-step-btn-not arduino.din.12 not.arduino12.in

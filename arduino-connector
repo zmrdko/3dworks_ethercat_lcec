@@ -55,25 +55,25 @@ connection = '/dev/ttyUSB_SEIKI'  #this is the port your Arduino is connected to
 
 
 # Set how many Inputs you have programmed in Arduino and which pins are Inputs, Set Inputs = 0 to disable
-Inputs = 17
-InPinmap = [11, 12, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53] #Which Pins are Inputs?
+Inputs = 23
+InPinmap = [4, 5, 6, 7, 8, 9, 11, 12, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53] #Which Pins are Inputs?
 
 # Set how many Toggled ("sticky") Inputs you have programmed in Arduino and which pins are Toggled Inputs , Set SInputs = 0 to disable
-SInputs = 1
-sInPinmap = [10] #Which Pins are SInputs?
+SInputs = 0
+sInPinmap = [] #Which Pins are SInputs?
 
 
 # Set how many Outputs you have programmed in Arduino and which pins are Outputs, Set Outputs = 0 to disable
 Outputs = 0				#9 Outputs, Set Outputs = 0 to disable
-OutPinmap = [11,12]	#Which Pins are Outputs?
+OutPinmap = []	#Which Pins are Outputs?
 
 # Set how many PWM Outputs you have programmed in Arduino and which pins are PWM Outputs, you can set as many as your Arduino has PWM pins. List the connected pins below.
 PwmOutputs = 0			#number of PwmOutputs, Set PwmOutputs = 0 to disable 
-PwmOutPinmap = [11,12]	#PwmPutput connected to Pin 11 & 12
+PwmOutPinmap = []	#PwmPutput connected to Pin 11 & 12
 
 # Set how many Analog Inputs you have programmed in Arduino and which pins are Analog Inputs, you can set as many as your Arduino has Analog pins. List the connected pins below.
-AInputs = 1				#number of AInputs, Set AInputs = 0 to disable 
-AInPinmap = [1]			#Potentiometer connected to Pin 1 (A0)
+AInputs = 0				#number of AInputs, Set AInputs = 0 to disable 
+AInPinmap = []			#Potentiometer connected to Pin 1 (A0)
 
 
 
