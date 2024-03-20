@@ -1,0 +1,5 @@
+loadrt bitslice names=bitslice.easycat1 personality=4
+
+addf bitslice.easycat1 servo-thread
+
+net easycat.bitslice.in bitslice.easycat1.in lcec.0.EasyCAT.inByte06
