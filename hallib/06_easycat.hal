@@ -1,5 +1,19 @@
-loadrt bitslice names=bitslice.easycat1 personality=4
+loadrt bitslice names=bitslice.easycat1,bitslice.easycat2,bitslice.easycat3,bitslice.easycat4 personality=8,8,8,8
 
 addf bitslice.easycat1 servo-thread
+addf bitslice.easycat2 servo-thread
+addf bitslice.easycat3 servo-thread
+addf bitslice.easycat4 servo-thread
 
-net easycat.bitslice.in bitslice.easycat1.in lcec.0.EasyCAT.inByte06
+net easycat.bitslice.in1 bitslice.easycat1.in lcec.0.EasyCAT.inByte06
+net easycat.bitslice.in2 bitslice.easycat2.in lcec.0.EasyCAT.inByte07
+net easycat.bitslice.in3 bitslice.easycat3.in lcec.0.EasyCAT.inByte08
+net easycat.bitslice.in4 bitslice.easycat4.in lcec.0.EasyCAT.inByte09
+
+loadrt encoder num_chan=1
+
+addf encoder.capture-position servo-thread
+addf encoder.update-counters servo-thread
+
+net encodera encoder.0.phase-A bitslice.easycat1.out-02
+net encoderb encoder.0.phase-B bitslice.easycat1.out-03
