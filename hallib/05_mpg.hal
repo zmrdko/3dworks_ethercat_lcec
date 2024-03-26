@@ -23,10 +23,10 @@ setp axis.z.jog-vel-mode 0
 # This sets the scale that will be used based on the input to the mux4
 # The scale used here has to be multiplied by the ilowpass scale
 setp mux16.xspeedsel.debounce-time   0.1
-setp mux16.xspeedsel.in00            0.00001
+setp mux16.xspeedsel.in00            0.001
 setp mux16.xspeedsel.in01            1
 setp mux16.xspeedsel.in02            0.0001
-setp mux16.xspeedsel.in03            0.001
+setp mux16.xspeedsel.in03            0.00001
 setp mux16.xspeedsel.in04            4
 setp mux16.xspeedsel.in05            5
 setp mux16.xspeedsel.in06            6
@@ -50,8 +50,8 @@ net mpg-scale => axis.z.jog-scale
 
 # The Axis select inputs
 net mpg-x axis.x.jog-enable <= demux.axissel.out-07
-net mpg-y axis.y.jog-enable <= demux.axissel.out-03
-net mpg-z axis.z.jog-enable <= demux.axissel.out-01
+net mpg-y axis.y.jog-enable <= demux.axissel.out-05
+net mpg-z axis.z.jog-enable <= demux.axissel.out-04
 
 # The output from the ilowpass is sent to each axis jog count
 # Only the selected axis will move.
@@ -62,15 +62,14 @@ net encoder-counts => axis.z.jog-counts
 
 
 # <MPG>
-net muxselector_4_0 mux16.xspeedsel.sel0 seiki.din.9
-net muxselector_4_1 mux16.xspeedsel.sel1 seiki.din.8
-
+net muxselector_4_0 mux16.xspeedsel.sel0 lcec.0.EasyCAT.inDigitalSet0-1
+net muxselector_4_1 mux16.xspeedsel.sel1 lcec.0.EasyCAT.inDigitalSet0-0
 # The Axis select inputs
-net demux-axissel-00 demux.axissel.sel-bit-00 seiki.din.7
-net demux-axissel-01 demux.axissel.sel-bit-01 seiki.din.6
-net demux-axissel-02 demux.axissel.sel-bit-02 seiki.din.5
+net demux-axissel-00 demux.axissel.sel-bit-00 lcec.0.EasyCAT.inDigitalSet0-2
+net demux-axissel-01 demux.axissel.sel-bit-01 lcec.0.EasyCAT.inDigitalSet0-3
+net demux-axissel-02 demux.axissel.sel-bit-02 lcec.0.EasyCAT.inDigitalSet0-4
 
 # The output from encoder counts is sent to ilowpass
-net mpg-out ilowpass.0.in <= seiki.counter.0
+net mpg-out ilowpass.0.in <= lcec.0.EasyCAT.mpg0
 
 # </MPG>
