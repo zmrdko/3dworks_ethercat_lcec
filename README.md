@@ -30,6 +30,8 @@ echo "SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLI
 echo "SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ttyUSB_DELTA"" > sudo tee /etc/udev/rules.d/01-usb.rules
 
 sudo udevadm control --reload-rules
+
+sudo adduser $USER dialout
 ```
 ## edit USB port in arduino connector script
 ```
