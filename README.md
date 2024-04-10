@@ -8,6 +8,8 @@ sudo geany /etc/default/grub
 
 GRUB_CMDLINE_LINUX_DEFAULT="quiet isolcpus=5 intel_idle.max_cstate=0 idle=poll i915.enable_rc6=0 rcu_nocbs=5 cpufreq.default-governor=performance nomodeset"
 
+GRUB_CMDLINE_LINUX_DEFAULT="quiet isolcpus=3 idle=poll"
+
 sudo update-grub
 ```
 
