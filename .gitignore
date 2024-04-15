@@ -1,0 +1,6 @@
+.vcp_persistent_data.pickle
+linuxcnc.var
+linuxcnc.var.bak
+halshow.preferences
+autosave.halscope
+python/__pycache__/
