@@ -80,5 +80,8 @@
         </pdo>
       </syncManager>
     </slave>
+    <slave idx="12" type="DeMS300" name="DeltaMS300">
+      <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="0"/>
+    </slave>
   </master>
 </masters>
