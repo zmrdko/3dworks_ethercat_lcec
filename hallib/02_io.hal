@@ -12,10 +12,11 @@ setp timedelay.estop.on-delay 0.1
 loadrt estop_latch count=1
 addf estop-latch.0         servo-thread
 
-net estop.reset_input      <= lcec.0.DO1.dout-0
+net estop.reset_input      <= lcec.0.DO2.dout-0
 net estop.reset_input      => iocontrol.0.user-request-enable
 net estop.reset_input      => timedelay.estop.in
 net estop.reset_input      => estop-latch.0.reset
+net estop.reset_input      => lcec.0.S0.fault-reset
 
 net estop.reset_timedelay  <= timedelay.estop.out
 net estop.reset_timedelay  => halui.estop.reset
@@ -54,21 +55,21 @@ loadrt toggle names=toggle.pause-resume.0
 addf toggle.pause-resume.0 servo-thread
 
 # Pause/Resume Section
-net pause-resume-btn and2.pause-resume.0.in0 and2.pause-resume.1.in0
-net prog-paused toggle2nist.pause-resume.0.is-on and2.pause-resume.0.in1 and2.pause-resume.3.in1 <= halui.program.is-paused
-net run-on and2.pause-resume.1.in1 <= halui.program.is-running
-net pause-sig or2.pause-resume.0.in0 <= and2.pause-resume.0.out
-net resume-sig or2.pause-resume.0.in1 <= and2.pause-resume.1.out
-net toggle-ok toggle.pause-resume.0.in <= or2.pause-resume.0.out
-net togglesig toggle2nist.pause-resume.0.in <= toggle.pause-resume.0.out
-net toggleon halui.program.pause <= toggle2nist.pause-resume.0.on
-net toggleoff halui.program.resume <= toggle2nist.pause-resume.0.off
+#net pause-resume-btn and2.pause-resume.0.in0 and2.pause-resume.1.in0
+#net pdnt.program.is-paused toggle2nist.pause-resume.0.is-on and2.pause-resume.0.in1 and2.pause-resume.3.in1 <= halui.program.is-paused
+#net pdnt.program-is-running and2.pause-resume.1.in1 <= halui.program.is-running
+#net pause-sig or2.pause-resume.0.in0 <= and2.pause-resume.0.out
+#net resume-sig or2.pause-resume.0.in1 <= and2.pause-resume.1.out
+#net toggle-ok toggle.pause-resume.0.in <= or2.pause-resume.0.out
+#net togglesig toggle2nist.pause-resume.0.in <= toggle.pause-resume.0.out
+#net pdnt.program.pause halui.program.pause <= toggle2nist.pause-resume.0.on
+#net pdnt.program.resume halui.program.resume <= toggle2nist.pause-resume.0.off
 
 # Run/Step Section
-net run-step-btn and2.pause-resume.2.in0 and2.pause-resume.3.in0
-net prog-running and2.pause-resume.2.in1 <= halui.program.is-idle
-net run-sig halui.mode.auto halui.program.run <= and2.pause-resume.2.out
-net step-sig halui.program.step <= and2.pause-resume.3.out
+#net run-step-btn and2.pause-resume.2.in0 and2.pause-resume.3.in0
+#net pdnt.program.is-idle and2.pause-resume.2.in1 <= halui.program.is-idle
+#net run-sig halui.mode.auto halui.program.run <= and2.pause-resume.2.out
+#net step-sig halui.program.step <= and2.pause-resume.3.out
 
 # probe input
 net probe-in  =>  motion.probe-input

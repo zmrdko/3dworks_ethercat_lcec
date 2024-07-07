@@ -1,10 +1,16 @@
 loadrt [KINS]KINEMATICS
 loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=30 num_aio=30
+loadrt pid names=pid.x1,pid.y1,pid.y2,pid.z1
 
 addf motion-command-handler   servo-thread
 addf motion-controller        servo-thread
 addf lcec.read-all            servo-thread
 addf lcec.write-all           servo-thread
+
+addf pid.x1.do-pid-calcs      servo-thread
+addf pid.y1.do-pid-calcs      servo-thread
+addf pid.y2.do-pid-calcs      servo-thread
+addf pid.z1.do-pid-calcs      servo-thread
 
 #=======================================================================
 #  AXIS X
@@ -18,17 +24,37 @@ setp lcec.0.X1.srv-pulses-per-rev 500000
 
 net machine-is-on lcec.0.X1.srv-fault-reset
 
-#for position mode
-net x-pos-cmd    <= joint.0.motor-pos-cmd
-net x-pos-cmd    => lcec.0.X1.srv-pos-cmd
+# PID Setup
+setp pid.x1.Pgain     [JOINT_0](P)
+setp pid.x1.Igain     [JOINT_0](I)
+setp pid.x1.Dgain     [JOINT_0](D)
+setp pid.x1.bias      [JOINT_0](BIAS)
+setp pid.x1.FF0       [JOINT_0](FF0)
+setp pid.x1.FF1       [JOINT_0](FF1)
+setp pid.x1.FF2       [JOINT_0](FF2)
+setp pid.x1.deadband  [JOINT_0](DEADBAND)
+setp pid.x1.maxoutput [JOINT_0](MAX_OUTPUT)
+setp pid.x1.error-previous-target True
+setp pid.x1.maxerror  [JOINT_0](MAX_ERROR)
+
 #for velocity mode
-#net x-vel-cmd    <= joint.0.vel-cmd
-#net x-vel-cmd    <= lcec.0.X1.srv-vel-cmd
 net x-pos-fb     <= lcec.0.X1.enc-pos-abs
-net x-pos-fb     => joint.0.motor-pos-fb  
+net x-pos-fb     => joint.0.motor-pos-fb
+net x-pos-fb     => pid.x1.feedback
+
+net x-vel-cmd    <= joint.0.vel-cmd
+net x-vel-cmd    => pid.x1.command
+
 net x-enable     <= joint.0.amp-enable-out
 net x-enable     => lcec.0.X1.srv-switch-on
 net x-enable     => lcec.0.X1.srv-enable
+net x-enable     => pid.x1.enable
+
+net x-vel-output => lcec.0.X1.srv-vel-cmd
+net x-vel-output <= pid.x1.output
+
+net x-index-enable <= lcec.0.X1.enc-index-ena
+net x-index-enable => pid.x1.index-enable
 
 #=======================================================================
 #  AXIS Y
@@ -42,12 +68,9 @@ setp lcec.0.Y1.srv-pulses-per-rev 500000
 
 net machine-is-on lcec.0.Y1.srv-fault-reset
 
-#for position mode
-net y1-pos-cmd    <= joint.1.motor-pos-cmd
-net y1-pos-cmd    => lcec.0.Y1.srv-pos-cmd
 #for velocity mode
-#net y1-vel-cmd    <= joint.1.vel-cmd
-#net y1-vel-cmd    <= lcec.0.Y1.srv-vel-cmd
+net y1-vel-cmd    <= joint.1.vel-cmd
+net y1-vel-cmd    <= lcec.0.Y1.srv-vel-cmd
 net y1-pos-fb     <= lcec.0.Y1.enc-pos-abs
 net y1-pos-fb     => joint.1.motor-pos-fb
 net y1-enable     <= joint.1.amp-enable-out
@@ -66,12 +89,9 @@ setp lcec.0.Y2.srv-pulses-per-rev 500000
 
 net machine-is-on lcec.0.Y2.srv-fault-reset
 
-#for position mode
-net y2-pos-cmd    <= joint.2.motor-pos-cmd
-net y2-pos-cmd    => lcec.0.Y2.srv-pos-cmd 
 #for velocity mode
-#net y2-vel-cmd    <= joint.2.vel-cmd
-#net y2-vel-cmd    <= lcec.0.Y2.srv-vel-cmd
+net y2-vel-cmd    <= joint.2.vel-cmd
+net y2-vel-cmd    <= lcec.0.Y2.srv-vel-cmd
 net y2-pos-fb     <= lcec.0.Y2.enc-pos-abs
 net y2-pos-fb     => joint.2.motor-pos-fb
 net y2-enable     <= joint.2.amp-enable-out
@@ -90,12 +110,10 @@ setp lcec.0.Z1.srv-pulses-per-rev 500000
 
 net machine-is-on lcec.0.Z1.srv-fault-reset
 
-#for position mode
-net z-pos-cmd    <= joint.3.motor-pos-cmd
-net z-pos-cmd    => lcec.0.Z1.srv-pos-cmd 
+
 #for velocity mode
-#net z-vel-cmd    <= joint.3.vel-cmd
-#net z-vel-cmd    <= lcec.0.Z1.srv-vel-cmd
+net z-vel-cmd    <= joint.3.vel-cmd
+net z-vel-cmd    <= lcec.0.Z1.srv-vel-cmd
 net z-pos-fb     <= lcec.0.Z1.enc-pos-abs
 net z-pos-fb     => joint.3.motor-pos-fb
 net z-enable     <= joint.3.amp-enable-out
