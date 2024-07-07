@@ -39,3 +39,9 @@ sudo geany /usr/bin/arduino-connector
 
 ln -s /home/cnc/linuxcnc/3dworks_ethercat_lcec/arduino-connector /usr/bin/arduino-connector
 ```
+
+after kernel upgrade
+```
+sudo apt install linux-headers-$(uname -r)
+sudo dpkg-reconfigure ethercat-dkms
+```
