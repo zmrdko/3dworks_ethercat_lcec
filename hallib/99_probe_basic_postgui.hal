@@ -16,7 +16,7 @@ net probe-in  =>  lcec.0.DI1.din-1-not
 net probe-in  <=  qtpyvcp.probe-led.on
 
 # *** Set line below for actual spindle readout from your hal file ***
-#net spindle-rpm-filtered scale_to_rpm.out  =>  qtpyvcp.spindle-encoder-rpm.in
+net spindle-rpm-filtered lcec.0.S0.vel-fb-rpm-abs  =>  qtpyvcp.spindle-encoder-rpm.in
 
 #net servo1 qtpyvcp.servo1.on lcec.0.X.slave-state-op
 #net servo2 qtpyvcp.servo2.on lcec.0.Y1.slave-state-op
