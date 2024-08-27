@@ -1,3 +1,12 @@
+loadrt message names=message.oillow,message.oilpressure,message.inverterfail messages="Slideway oil low,No oil pressure,Spindle inverter fault"
+addf message.oillow servo-thread
+addf message.oilpressure servo-thread
+addf message.inverterfail servo-thread
+
+setp message.oillow.edge TRUE #this pin should be active low
+net estop.fault_in message.oillow.trigger
+
+
 loadrt tp                  names=tp.estop
 addf tp.estop              servo-thread
 setp tp.estop.pt           1
