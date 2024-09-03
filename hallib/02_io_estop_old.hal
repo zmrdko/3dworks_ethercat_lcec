@@ -1,0 +1,76 @@
+loadrt message names=message.oillow,message.oilpressure,message.inverterfail messages="Slideway oil low,No oil pressure,Spindle inverter fault"
+addf message.oillow servo-thread
+addf message.oilpressure servo-thread
+addf message.inverterfail servo-thread
+
+setp message.oillow.edge TRUE #this pin should be active low
+ 
+net estop.fault_in message.oillow.trigger
+
+
+loadrt tp                  names=tp.estop
+addf tp.estop              servo-thread
+setp tp.estop.pt           1
+
+loadrt not                 names=not.estop
+addf not.estop             servo-thread
+
+loadrt timedelay           names=timedelay.estop
+addf timedelay.estop       servo-thread
+setp timedelay.estop.on-delay 0.1 
+
+loadrt estop_latch names=estop_latch.joint0,estop_latch.joint1,estop_latch.joint2,estop_latch.joint3,estop_latch.spindle0,estop_latch.main
+addf   estop_latch.joint0   servo-thread
+addf   estop_latch.joint1   servo-thread
+addf   estop_latch.joint2   servo-thread
+addf   estop_latch.joint3   servo-thread
+addf   estop_latch.spindle0 servo-thread
+addf   estop_latch.main     servo-thread
+
+
+loadrt logic names=logic.estop.or personality=0x205
+addf logic.estop.or servo-thread
+
+#net estop.joint.0.fault <= joint.0.faulted
+#net estop.joint.0.fault => estop_latch.joint0.fault-in logic.estop.or.in-00
+#net estop.joint.1.fault <= joint.1.faulted
+#net estop.joint.1.fault => estop_latch.joint1.fault-in logic.estop.or.in-01
+#net estop.joint.2.fault <= joint.2.faulted
+#net estop.joint.2.fault => estop_latch.joint2.fault-in logic.estop.or.in-02
+#net estop.joint.3.fault <= joint.3.faulted
+#net estop.joint.3.fault => estop_latch.joint3.fault-in logic.estop.or.in-03
+#net estop.spindle.0.fault <= spindle.0.faulted
+#net estop.spindle.0.fault => estop_latch.spindle0.fault-in logic.estop.or.in-04
+
+
+#net logic.estop.in4 <= estop_latch.spindle0.fault-in
+#net logic.estop.in4 => logic.estop.or.in-04
+#net logic.estop.out <= logic.estop.or.out
+#net logic.estop.out => estop_latch.main.fault-in
+
+net estop.reset_input      <= lcec.0.DO2.dout-0
+net estop.reset_input      => iocontrol.0.user-request-enable
+net estop.reset_input      => timedelay.estop.in
+net estop.reset_input      => estop_latch.main.reset
+net estop.reset_input      => lcec.0.S0.fault-reset
+
+net estop.reset_timedelay  <= timedelay.estop.out
+net estop.reset_timedelay  => halui.estop.reset
+
+net estop.reset_enable     <= iocontrol.0.user-enable-out
+net estop.reset_enable     => estop_latch.main.ok-in
+
+net estop.reset_emc_enable <= estop_latch.main.ok-out
+net estop.reset_emc_enable => iocontrol.0.emc-enable-in
+
+#net estop.fault_in         <= lcec.0.DI1.din-0-not
+#net estop.fault_in         => estop_latch.main.fault-in
+
+net estop.fault_out        <= estop_latch.main.fault-out
+net estop.fault_out        => tp.estop.in
+
+net estop.not_in           <= tp.estop.q
+net estop.not_in           => not.estop.in
+
+net estop.out              <= not.estop.out
+net estop.out              => lcec.0.DO1.dout-1

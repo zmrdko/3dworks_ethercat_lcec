@@ -15,10 +15,23 @@ net tool-number             =>  qtpyvcp_manualtoolchange.number
 net probe-in  =>  lcec.0.DI1.din-1-not
 net probe-in  <=  qtpyvcp.probe-led.on
 
+loadrt mult2 names=mult2.spindle_load
+addf mult2.spindle_load servo-thread
+
+loadrt constant names=constant.spindle_load
+addf constant.spindle_load servo-thread
+setp constant.spindle_load.value 9.0909
+
+net asdf1 mult2.spindle_load.in0 constant.spindle_load.out
+net asdf2 mult2.spindle_load.in1 lcec.0.S0.act-current
+
 # *** Set line below for actual spindle readout from your hal file ***
 net spindle-rpm-filtered lcec.0.S0.vel-fb-rpm-abs  =>  qtpyvcp.spindle-encoder-rpm.in
+net spindle-load-indicator mult2.spindle_load.out => qtpyvcp.spindle-load-indicator.in-f
 
 #net servo1 qtpyvcp.servo1.on lcec.0.X.slave-state-op
 #net servo2 qtpyvcp.servo2.on lcec.0.Y1.slave-state-op
 #net servo3 qtpyvcp.servo3.on lcec.0.Y2.slave-state-op
 #net servo4 qtpyvcp.servo4.on lcec.0.Z.slave-state-op
+
+loadusr halshow

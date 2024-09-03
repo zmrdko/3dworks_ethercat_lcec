@@ -7,8 +7,8 @@ setp     lcec.0.S0.vel-ramp-down   [SPINDLE]RAMP_DOWN
 setp     lcec.0.S0.vel-ramp-up     [SPINDLE]RAMP_UP
 
 net      spindle-enable                        spindle.0.on                        lcec.0.S0.enable
-net      spindle-at-speed                      lcec.0.S0.stat-at-speed        spindle.0.at-speed
-
+net      spindle-at-speed                      spindle.0.at-speed                  lcec.0.S0.stat-at-speed        
+net      spindle-fault-in                      spindle.0.amp-fault-in              lcec.0.S0.stat-fault
 
 
 

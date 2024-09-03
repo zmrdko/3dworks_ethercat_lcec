@@ -70,6 +70,7 @@ net estop.reset_input     => estop_latch.joint1.reset
 net estop.reset_input     => estop_latch.joint2.reset
 net estop.reset_input     => estop_latch.joint3.reset
 
+
 net estop.and2.active <= halui.estop.is-activated
 net estop.and2.active => and2.estop.in0
 
@@ -93,39 +94,3 @@ net estop.reset_emc_enable => iocontrol.0.emc-enable-in
 
 net estop.reset_enable_out <= iocontrol.0.user-enable-out
 net estop.reset_enable_out => estop_latch.main.ok-in
-
-#=======================================================================
-# Pause/Resume Section
-loadrt and2 names=and2.pause-resume.0,and2.pause-resume.1,and2.pause-resume.2,and2.pause-resume.3
-addf and2.pause-resume.0 servo-thread
-addf and2.pause-resume.1 servo-thread
-addf and2.pause-resume.2 servo-thread
-addf and2.pause-resume.3 servo-thread
-
-loadrt toggle2nist names=toggle2nist.pause-resume.0
-addf toggle2nist.pause-resume.0 servo-thread
-
-loadrt or2 names=or2.pause-resume.0
-addf or2.pause-resume.0 servo-thread
-
-loadrt toggle names=toggle.pause-resume.0
-addf toggle.pause-resume.0 servo-thread
-
-#net pause-resume-btn and2.pause-resume.0.in0 and2.pause-resume.1.in0
-#net pdnt.program.is-paused toggle2nist.pause-resume.0.is-on and2.pause-resume.0.in1 and2.pause-resume.3.in1 <= halui.program.is-paused
-#net pdnt.program-is-running and2.pause-resume.1.in1 <= halui.program.is-running
-#net pause-sig or2.pause-resume.0.in0 <= and2.pause-resume.0.out
-#net resume-sig or2.pause-resume.0.in1 <= and2.pause-resume.1.out
-#net toggle-ok toggle.pause-resume.0.in <= or2.pause-resume.0.out
-#net togglesig toggle2nist.pause-resume.0.in <= toggle.pause-resume.0.out
-#net pdnt.program.pause halui.program.pause <= toggle2nist.pause-resume.0.on
-#net pdnt.program.resume halui.program.resume <= toggle2nist.pause-resume.0.off
-
-# Run/Step Section
-#net run-step-btn and2.pause-resume.2.in0 and2.pause-resume.3.in0
-#net pdnt.program.is-idle and2.pause-resume.2.in1 <= halui.program.is-idle
-#net run-sig halui.mode.auto halui.program.run <= and2.pause-resume.2.out
-#net step-sig halui.program.step <= and2.pause-resume.3.out
-
-# probe input
-net probe-in  =>  motion.probe-input
